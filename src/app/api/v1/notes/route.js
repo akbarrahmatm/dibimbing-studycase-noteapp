@@ -61,15 +61,18 @@ export async function POST(req) {
     });
 
     if (!newNote) {
-      throw Error("Unexpected Error");
+      throw Error("Unexpected Error, Failed to create new note");
     }
 
-    return NextResponse.json({
-      status: "Success",
-      message: "Data is successfully created",
-      requestAt: new Date(),
-      data: { newNote },
-    });
+    return NextResponse.json(
+      {
+        status: "Success",
+        message: "Data is successfully created",
+        requestAt: new Date(),
+        data: { newNote },
+      },
+      { status: 201 }
+    );
   } catch (err) {
     return NextResponse.json(
       {
