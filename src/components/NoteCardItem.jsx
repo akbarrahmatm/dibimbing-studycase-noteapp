@@ -10,7 +10,38 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-export default function NoteCardItem() {
+import Swal from "sweetalert2";
+
+const handleClickDetail = () => {
+  Swal.fire({
+    title: "Do you want to save the changes?",
+    showCancelButton: true,
+    confirmButtonText: "Save",
+    confirmButtonColor: "red",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire("Saved!", "", "success");
+    }
+  });
+};
+
+const handleDeleteNote = () => {
+  Swal.fire({
+    title: "Delete Notes?",
+    icon: "question",
+    iconColor: "red",
+    text: "Once you delete a notes, it can't be recovered",
+    showCancelButton: true,
+    confirmButtonText: "Yes, Delete",
+    confirmButtonColor: "red",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire("Saved!", "", "success");
+    }
+  });
+};
+
+export default function NoteCardItem({ title, idNote, createdAt }) {
   return (
     <>
       <CardBody>
@@ -22,10 +53,10 @@ export default function NoteCardItem() {
           <Stack divider={<StackDivider />} spacing="4" flex="1">
             <Box>
               <Heading size="xs" textTransform="uppercase">
-                Summary
+                {title}
               </Heading>
               <Text pt="2" fontSize="sm">
-                ID: 999 | Created At: DD MM YYYY
+                ID: {idNote} | Created At: {createdAt}
               </Text>
             </Box>
           </Stack>
@@ -38,7 +69,9 @@ export default function NoteCardItem() {
           >
             <Button colorScheme="teal">Detail</Button>
             <Button colorScheme="yellow">Edit</Button>
-            <Button colorScheme="red">Delete</Button>
+            <Button onClick={handleDeleteNote} colorScheme="red">
+              Delete
+            </Button>
           </ButtonGroup>
         </Flex>
       </CardBody>
