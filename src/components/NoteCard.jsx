@@ -45,9 +45,13 @@ export default function NoteCard() {
 
   return (
     <>
-      {isLoading === false && error && <ErrorMessage errorMessage={error} />}
+      {isLoading === false && error && !notes && (
+        <ErrorMessage errorMessage={error} />
+      )}
 
-      {isLoading === false && notes && !error && <NotFoundMessage />}
+      {isLoading === false && notes && notes.length === 0 && !error && (
+        <NotFoundMessage />
+      )}
 
       <Card width="90%">
         {isLoading === true && <NoteCardLoading />}

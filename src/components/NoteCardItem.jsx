@@ -12,6 +12,8 @@ import {
 
 import Swal from "sweetalert2";
 
+import dayjs from "dayjs";
+
 const handleClickDetail = () => {
   Swal.fire({
     title: "Do you want to save the changes?",
@@ -56,7 +58,8 @@ export default function NoteCardItem({ title, idNote, createdAt }) {
                 {title}
               </Heading>
               <Text pt="2" fontSize="sm">
-                ID: {idNote} | Created At: {createdAt}
+                ID: {idNote} |{" "}
+                {dayjs(createdAt).format("dddd, DD MMMM YYYY HH:mm:ss")}
               </Text>
             </Box>
           </Stack>

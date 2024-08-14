@@ -5,7 +5,11 @@ const db = new PrismaClient();
 
 export async function GET() {
   try {
-    const notes = await db.note.findMany();
+    const notes = await db.note.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
 
     return NextResponse.json(
       {
