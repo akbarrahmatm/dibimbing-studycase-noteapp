@@ -1,23 +1,15 @@
-import { createNotes, getNoteById } from "@/services/notes.service";
+import { deleteNotes, getNoteById } from "@/services/notes.service";
 import {
   Button,
   Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-  FormHelperText,
-  Spinner,
   Card,
   CardHeader,
   Heading,
-  Stack,
-  StackDivider,
   CardBody,
   Text,
   ButtonGroup,
 } from "@chakra-ui/react";
-import { notFound, useParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast, Bounce } from "react-toastify";
 import Swal from "sweetalert2";
@@ -77,6 +69,53 @@ export default function NoteDetail() {
     }
   };
 
+  const processDelete = async (id) => {
+    try {
+      const response = await deleteNotes(id);
+
+      if (response) {
+        router.push("/");
+      }
+    } catch (err) {
+      toast.error(err.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+  };
+
+  const handleClickDelete = (id) => {
+    if (id) {
+      Swal.fire({
+        title: "Delete Notes?",
+        icon: "question",
+        iconColor: "red",
+        text: "Once you delete a notes, it can't be recovered",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Delete",
+        confirmButtonColor: "red",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          processDelete(params.id);
+        }
+      });
+    } else {
+      Swal.fire({
+        title: "Oooppsss",
+        icon: "question",
+        iconColor: "red",
+        text: "An error occured",
+      });
+    }
+  };
+
   return (
     <>
       <Box width={{ base: "100%", md: "70%", lg: "50%" }} m="auto">
@@ -96,6 +135,13 @@ export default function NoteDetail() {
                     size="sm"
                   >
                     Edit
+                  </Button>
+                  <Button
+                    onClick={() => handleClickDelete(note.id)}
+                    colorScheme={"red"}
+                    size="sm"
+                  >
+                    Delete
                   </Button>
                 </ButtonGroup>
               </Box>
