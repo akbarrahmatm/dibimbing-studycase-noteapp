@@ -31,6 +31,7 @@ Postman Documentation : [Click Here](https://documenter.getpostman.com/view/2272
 - Toastify
 - SweetAlert2
 - Dayjs
+- Deployed On Vercel
 
 ### Preview
 
