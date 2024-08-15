@@ -5,7 +5,7 @@ import { BASE_URL } from "../configs/constants";
 
 export async function getAllNotes() {
   try {
-    const response = await axios.get(`${BASE_URL}/api/v1/notes`);
+    const response = await axios.get(`${BASE_URL}/api/v1/notes/list`);
 
     if (response.status !== 200) {
       throw new Error(response.data.message);
@@ -19,7 +19,7 @@ export async function getAllNotes() {
 
 export async function createNotes(data) {
   try {
-    const response = await axios.post(`${BASE_URL}/api/v1/notes`, data);
+    const response = await axios.post(`${BASE_URL}/api/v1/notes/create`, data);
 
     return response.data;
   } catch (err) {
@@ -29,7 +29,9 @@ export async function createNotes(data) {
 
 export async function deleteNotes(id) {
   try {
-    const response = await axios.delete(`${BASE_URL}/api/v1/notes/${id}`);
+    const response = await axios.delete(
+      `${BASE_URL}/api/v1/notes/delete/${id}`
+    );
 
     return response.data;
   } catch (err) {
@@ -39,7 +41,7 @@ export async function deleteNotes(id) {
 
 export async function getNoteById(id) {
   try {
-    const response = await axios.get(`${BASE_URL}/api/v1/notes/${id}`);
+    const response = await axios.get(`${BASE_URL}/api/v1/notes/detail/${id}`);
 
     return response.data;
   } catch (err) {
@@ -49,7 +51,10 @@ export async function getNoteById(id) {
 
 export async function updateNotes(id, data) {
   try {
-    const response = await axios.patch(`${BASE_URL}/api/v1/notes/${id}`, data);
+    const response = await axios.patch(
+      `${BASE_URL}/api/v1/notes/update/${id}`,
+      data
+    );
 
     return response.data;
   } catch (err) {
