@@ -7,11 +7,20 @@ A note-taking application designed to capture and organize your thoughts. Built 
 
 ### Demo
 
-Demo Website : [Click Here](https://dibimbing-studycase-noteapp-qiv9.vercel.app/)
+Demo Website : [Click Here](https://youtu.be/KIsSFbFFdzQ)
 
 ### API Docs
 
 Postman Documentation : [Click Here](https://documenter.getpostman.com/view/22728093/2sA3s7hnv1)
+
+### Tutorial
+
+- `npm install`
+- Copy `.env.example` to `.env`
+- Fill your `DATABASE_URL` & `BASE_URL`
+- `next dev` or `npm run dev`
+
+Note : `DATABASE_URL` is postgreSQL connection URL. Example : `postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public`
 
 ### Features
 
