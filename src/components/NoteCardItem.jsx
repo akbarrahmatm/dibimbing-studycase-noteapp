@@ -56,6 +56,19 @@ export default function NoteCardItem({ title, idNote, createdAt, fetchNotes }) {
     }
   };
 
+  const handleEditNote = (id) => {
+    if (id) {
+      router.push(`/edit/${id}`);
+    } else {
+      Swal.fire({
+        title: "Oooppsss",
+        icon: "question",
+        iconColor: "red",
+        text: "An error occured",
+      });
+    }
+  };
+
   const handleDeleteNote = (id, fetchNotes) => {
     Swal.fire({
       title: "Delete Notes?",
@@ -103,7 +116,9 @@ export default function NoteCardItem({ title, idNote, createdAt, fetchNotes }) {
             >
               Detail
             </Button>
-            <Button colorScheme="yellow">Edit</Button>
+            <Button onClick={() => handleEditNote(idNote)} colorScheme="yellow">
+              Edit
+            </Button>
             <Button
               onClick={() => handleDeleteNote(idNote, fetchNotes)}
               colorScheme="red"

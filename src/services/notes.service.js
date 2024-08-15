@@ -46,3 +46,13 @@ export async function getNoteById(id) {
     return err.message;
   }
 }
+
+export async function updateNotes(id, data) {
+  try {
+    const response = await axios.patch(`${BASE_URL}/api/v1/notes/${id}`, data);
+
+    return response.data;
+  } catch (err) {
+    return err.message;
+  }
+}

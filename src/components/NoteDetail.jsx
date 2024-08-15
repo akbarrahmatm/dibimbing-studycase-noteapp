@@ -41,8 +41,6 @@ export default function NoteDetail() {
         throw new Error("Note not found. Please check the ID and try again.");
       }
 
-      console.log(response.data.note);
-
       setNote(response.data.note);
     } catch (err) {
       setError(err.message);
@@ -66,6 +64,19 @@ export default function NoteDetail() {
     fetchNoteDetail();
   }, []);
 
+  const handleClickEdit = (id) => {
+    if (id) {
+      router.push(`/edit/${id}`);
+    } else {
+      Swal.fire({
+        title: "Oooppsss",
+        icon: "question",
+        iconColor: "red",
+        text: "An error occured",
+      });
+    }
+  };
+
   return (
     <>
       <Box width={{ base: "100%", md: "70%", lg: "50%" }} m="auto">
@@ -79,11 +90,12 @@ export default function NoteDetail() {
             {!isLoading && note && (
               <Box mt={2}>
                 <ButtonGroup display={"flex"} justifyContent="flex-end">
-                  <Button colorScheme={"yellow"} size="sm">
+                  <Button
+                    onClick={() => handleClickEdit(note.id)}
+                    colorScheme={"yellow"}
+                    size="sm"
+                  >
                     Edit
-                  </Button>
-                  <Button colorScheme={"red"} size="sm">
-                    Delete
                   </Button>
                 </ButtonGroup>
               </Box>
