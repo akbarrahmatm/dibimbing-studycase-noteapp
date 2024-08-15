@@ -5,6 +5,10 @@
 </p>
 A note-taking application designed to capture and organize your thoughts. Built with Next.js and powered by a PostgreSQL database.
 
+### Demo
+
+Demo Website : [Click Here](https://dibimbing-studycase-noteapp-qiv9.vercel.app/)
+
 ### API Docs
 
 Postman Documentation : [Click Here](https://documenter.getpostman.com/view/22728093/2sA3s7hnv1)
