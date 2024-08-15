@@ -1,13 +1,13 @@
 "use client";
 
 import Header from "@/components/Header";
-import NoteAddContainer from "@/components/NoteAddContainer";
+import NoteDetailContainer from "@/components/NoteDetailContainer";
 import { Container, Center } from "@chakra-ui/react";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
-export default function AddNotePage() {
+export default function DetailNotePage() {
   return (
     <Container
       maxW={{ base: "100%", sm: "90%", md: "80%", lg: "70%" }}
@@ -23,7 +23,7 @@ export default function AddNotePage() {
       </Center>
 
       <ToastContainer />
-      <NoteAddContainer />
+      <NoteDetailContainer />
     </Container>
   );
 }

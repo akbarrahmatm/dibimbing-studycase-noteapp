@@ -64,6 +64,7 @@ export default function NoteCard() {
               idNote={note.id}
               title={note.title}
               createdAt={note.createdAt}
+              fetchNotes={fetchNotes}
             />
           ))}
       </Card>

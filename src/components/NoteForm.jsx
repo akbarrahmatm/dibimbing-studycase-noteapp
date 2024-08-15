@@ -38,8 +38,6 @@ export default function NoteForm() {
 
       const response = await createNotes(data);
 
-      console.log(response);
-
       setNewNotes(response);
 
       if (response) {
@@ -48,7 +46,8 @@ export default function NoteForm() {
           text: "Notes is successfully saved",
           icon: "success",
           showConfirmButton: true,
-          confirmButtonText: "Go To Notes",
+          confirmButtonColor: "#319795",
+          confirmButtonText: "Back To Notes",
         }).then((result) => {
           if (result.isConfirmed) {
             router.push("/");
@@ -58,8 +57,6 @@ export default function NoteForm() {
         });
       }
     } catch (err) {
-      setError(err.message);
-
       toast.error(err.message, {
         position: "bottom-right",
         autoClose: 5000,
@@ -102,7 +99,9 @@ export default function NoteForm() {
   return (
     <>
       {isLoading === false && error && !newNotes && (
-        <ErrorMessage errorMessage={error} />
+        <>
+          <ErrorMessage errorMessage={error} />
+        </>
       )}
 
       <Box width={{ base: "100%", md: "70%", lg: "50%" }} m="auto">

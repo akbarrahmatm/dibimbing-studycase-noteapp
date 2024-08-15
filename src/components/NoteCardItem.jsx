@@ -1,3 +1,5 @@
+"use client";
+
 import {
   CardBody,
   Heading,
@@ -11,39 +13,64 @@ import {
 } from "@chakra-ui/react";
 
 import Swal from "sweetalert2";
-
+import { deleteNotes } from "@/services/notes.service";
 import dayjs from "dayjs";
+import { toast, Bounce } from "react-toastify";
+import { useRouter } from "next/navigation";
 
-const handleClickDetail = () => {
-  Swal.fire({
-    title: "Do you want to save the changes?",
-    showCancelButton: true,
-    confirmButtonText: "Save",
-    confirmButtonColor: "red",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire("Saved!", "", "success");
+export default function NoteCardItem({ title, idNote, createdAt, fetchNotes }) {
+  const router = useRouter();
+
+  const handleClickDetail = (id) => {
+    if (id) {
+      router.push(`/detail/${id}`);
+    } else {
+      Swal.fire({
+        title: "Oooppsss",
+        icon: "question",
+        iconColor: "red",
+        text: "An error occured",
+      });
     }
-  });
-};
+  };
 
-const handleDeleteNote = () => {
-  Swal.fire({
-    title: "Delete Notes?",
-    icon: "question",
-    iconColor: "red",
-    text: "Once you delete a notes, it can't be recovered",
-    showCancelButton: true,
-    confirmButtonText: "Yes, Delete",
-    confirmButtonColor: "red",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire("Saved!", "", "success");
+  const processDelete = async (id, fetchNotes) => {
+    try {
+      const response = await deleteNotes(id);
+
+      if (response) {
+        fetchNotes();
+      }
+    } catch (err) {
+      toast.error(err.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     }
-  });
-};
+  };
 
-export default function NoteCardItem({ title, idNote, createdAt }) {
+  const handleDeleteNote = (id, fetchNotes) => {
+    Swal.fire({
+      title: "Delete Notes?",
+      icon: "question",
+      iconColor: "red",
+      text: "Once you delete a notes, it can't be recovered",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Delete",
+      confirmButtonColor: "red",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        processDelete(id, fetchNotes);
+      }
+    });
+  };
   return (
     <>
       <CardBody>
@@ -70,9 +97,17 @@ export default function NoteCardItem({ title, idNote, createdAt }) {
             mt={{ base: 4, md: 0 }}
             ml={{ md: 4 }}
           >
-            <Button colorScheme="teal">Detail</Button>
+            <Button
+              onClick={() => handleClickDetail(idNote)}
+              colorScheme="teal"
+            >
+              Detail
+            </Button>
             <Button colorScheme="yellow">Edit</Button>
-            <Button onClick={handleDeleteNote} colorScheme="red">
+            <Button
+              onClick={() => handleDeleteNote(idNote, fetchNotes)}
+              colorScheme="red"
+            >
               Delete
             </Button>
           </ButtonGroup>
